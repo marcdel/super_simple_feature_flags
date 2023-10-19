@@ -1,7 +1,7 @@
 defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.FormComponent do
   use SuperSimpleFeatureFlagsWeb, :live_component
 
-  alias SuperSimpleFeatureFlags.Core
+  alias SuperSimpleFeatureFlags.Persistence
 
   @impl true
   def render(assigns) do
@@ -31,7 +31,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.FormComponent do
 
   @impl true
   def update(%{feature: feature} = assigns, socket) do
-    changeset = Core.change_feature(feature)
+    changeset = Persistence.change_feature(feature)
 
     {:ok,
      socket
@@ -43,7 +43,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.FormComponent do
   def handle_event("validate", %{"feature" => feature_params}, socket) do
     changeset =
       socket.assigns.feature
-      |> Core.change_feature(feature_params)
+      |> Persistence.change_feature(feature_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}
@@ -54,7 +54,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.FormComponent do
   end
 
   defp save_feature(socket, :edit, feature_params) do
-    case Core.update_feature(socket.assigns.feature, feature_params) do
+    case Persistence.update_feature(socket.assigns.feature, feature_params) do
       {:ok, feature} ->
         notify_parent({:saved, feature})
 
@@ -69,7 +69,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.FormComponent do
   end
 
   defp save_feature(socket, :new, feature_params) do
-    case Core.create_feature(feature_params) do
+    case Persistence.create_feature(feature_params) do
       {:ok, feature} ->
         notify_parent({:saved, feature})
 

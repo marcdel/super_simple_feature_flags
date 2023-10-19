@@ -1,12 +1,12 @@
 defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.Index do
   use SuperSimpleFeatureFlagsWeb, :live_view
 
-  alias SuperSimpleFeatureFlags.Core
-  alias SuperSimpleFeatureFlags.Core.Feature
+  alias SuperSimpleFeatureFlags.Persistence
+  alias SuperSimpleFeatureFlags.Persistence.Feature
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :features, Core.list_features())}
+    {:ok, stream(socket, :features, Persistence.list_features())}
   end
 
   @impl true
@@ -17,7 +17,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Feature")
-    |> assign(:feature, Core.get_feature!(id))
+    |> assign(:feature, Persistence.get_feature!(id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -42,8 +42,8 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    feature = Core.get_feature!(id)
-    {:ok, _} = Core.delete_feature(feature)
+    feature = Persistence.get_feature!(id)
+    {:ok, _} = Persistence.delete_feature(feature)
 
     {:noreply, stream_delete(socket, :features, feature)}
   end
@@ -52,8 +52,8 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.Index do
   def handle_event("toggle_feature", %{"id" => id} = params, socket) do
     {:ok, feature} =
       id
-      |> Core.get_feature!()
-      |> Core.update_feature(%{enabled: params["value"] != "true"})
+      |> Persistence.get_feature!()
+      |> Persistence.update_feature(%{enabled: params["value"] != "true"})
 
     {:noreply, stream_insert(socket, :features, feature)}
   end

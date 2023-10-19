@@ -1,12 +1,12 @@
-defmodule SuperSimpleFeatureFlags.Core do
+defmodule SuperSimpleFeatureFlags.Persistence do
   @moduledoc """
-  The Core context.
+  The Persistence context.
   """
 
   import Ecto.Query, warn: false
   alias SuperSimpleFeatureFlags.Repo
 
-  alias SuperSimpleFeatureFlags.Core.Feature
+  alias SuperSimpleFeatureFlags.Persistence.Feature
 
   @doc """
   Returns the list of features.

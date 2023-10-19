@@ -1,7 +1,7 @@
-defmodule SuperSimpleFeatureFlags.Core.Feature do
+defmodule SuperSimpleFeatureFlags.Persistence.Feature do
   use Ecto.Schema
   import Ecto.Changeset
-  alias SuperSimpleFeatureFlags.Core.AtomType
+  alias SuperSimpleFeatureFlags.Persistence.AtomType
 
   schema "features" do
     field :name, AtomType
@@ -21,9 +21,12 @@ defmodule SuperSimpleFeatureFlags.Core.Feature do
   defp ensure_atom(changeset, fields) do
     Enum.reduce(fields, changeset, fn field, changeset ->
       case get_change(changeset, field) do
-        nil -> changeset
+        nil ->
+          changeset
+
         value when is_atom(value) ->
           changeset
+
         value when is_binary(value) ->
           put_change(changeset, field, String.to_atom(value))
       end

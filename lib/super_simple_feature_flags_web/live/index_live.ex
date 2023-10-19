@@ -1,6 +1,6 @@
 defmodule SuperSimpleFeatureFlagsWeb.IndexLive do
   use SuperSimpleFeatureFlagsWeb, :live_view
-  alias SuperSimpleFeatureFlags.Core
+  alias SuperSimpleFeatureFlags.Persistence
 
   @impl true
   def render(assigns) do
@@ -52,7 +52,7 @@ defmodule SuperSimpleFeatureFlagsWeb.IndexLive do
     socket =
       socket
       |> assign(:page_title, "Features")
-      |> assign(:features, Core.list_features())
+      |> assign(:features, Persistence.list_features())
 
     {:ok, socket}
   end

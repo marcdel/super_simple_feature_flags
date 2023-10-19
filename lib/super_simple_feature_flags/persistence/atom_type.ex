@@ -1,4 +1,4 @@
-defmodule SuperSimpleFeatureFlags.Core.AtomType do
+defmodule SuperSimpleFeatureFlags.Persistence.AtomType do
   @moduledoc false
   use Ecto.Type
   def type, do: :string

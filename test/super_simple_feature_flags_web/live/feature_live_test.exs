@@ -2,7 +2,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLiveTest do
   use SuperSimpleFeatureFlagsWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import SuperSimpleFeatureFlags.CoreFixtures
+  import SuperSimpleFeatureFlags.PersistenceFixtures
 
   @create_attrs %{enabled: true, name: "some_name"}
   @update_attrs %{enabled: false, name: "some_updated_name"}

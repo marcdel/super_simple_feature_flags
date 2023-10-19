@@ -1,7 +1,7 @@
-defmodule SuperSimpleFeatureFlags.CoreFixtures do
+defmodule SuperSimpleFeatureFlags.PersistenceFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `SuperSimpleFeatureFlags.Core` context.
+  entities via the `SuperSimpleFeatureFlags.Persistence` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule SuperSimpleFeatureFlags.CoreFixtures do
         enabled: true,
         name: :some_name
       })
-      |> SuperSimpleFeatureFlags.Core.create_feature()
+      |> SuperSimpleFeatureFlags.Persistence.create_feature()
 
     feature
   end

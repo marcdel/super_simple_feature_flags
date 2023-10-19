@@ -1,7 +1,7 @@
 defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.Show do
   use SuperSimpleFeatureFlagsWeb, :live_view
 
-  alias SuperSimpleFeatureFlags.Core
+  alias SuperSimpleFeatureFlags.Persistence
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,7 +13,7 @@ defmodule SuperSimpleFeatureFlagsWeb.FeatureLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:feature, Core.get_feature!(id))}
+     |> assign(:feature, Persistence.get_feature!(id))}
   end
 
   defp page_title(:show), do: "Show Feature"
