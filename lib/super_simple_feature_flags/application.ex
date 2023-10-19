@@ -10,7 +10,8 @@ defmodule SuperSimpleFeatureFlags.Application do
     children = [
       SuperSimpleFeatureFlagsWeb.Telemetry,
       SuperSimpleFeatureFlags.Repo,
-      {DNSCluster, query: Application.get_env(:super_simple_feature_flags, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:super_simple_feature_flags, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: SuperSimpleFeatureFlags.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: SuperSimpleFeatureFlags.Finch},

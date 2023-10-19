@@ -17,7 +17,14 @@ defmodule SuperSimpleFeatureFlagsWeb.Router do
   scope "/", SuperSimpleFeatureFlagsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", IndexLive
+
+    live "/features", FeatureLive.Index, :index
+    live "/features/new", FeatureLive.Index, :new
+    live "/features/:id/edit", FeatureLive.Index, :edit
+
+    live "/features/:id", FeatureLive.Show, :show
+    live "/features/:id/show/edit", FeatureLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
